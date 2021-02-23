@@ -23,7 +23,8 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
             height: 50,
             width: 300,
             decoration: BoxDecoration(
-              color: AppConstants.hexToColor("#e27b36"),
+              color: AppConstants.hexToColor(
+                  AppConstants.INGREDIENT_BREAD_TOP_COLOR),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -60,7 +61,8 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
             height: 40,
             width: 300,
             decoration: BoxDecoration(
-              color: AppConstants.hexToColor("#F08E4A"),
+              color: AppConstants.hexToColor(
+                  AppConstants.INGREDIENT_BREAD_BOTTOM_COLOR),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(10),
                 bottomRight: Radius.circular(10),
@@ -95,7 +97,8 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
             width: 300,
             height: 30,
             decoration: BoxDecoration(
-              color: AppConstants.hexToColor("#7f3608"),
+              color:
+                  AppConstants.hexToColor(AppConstants.INGREDIENT_MEAT_COLOR),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -122,7 +125,8 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
             height: 15,
             width: 310,
             decoration: BoxDecoration(
-              color: AppConstants.hexToColor("#f4d004"),
+              color:
+                  AppConstants.hexToColor(AppConstants.INGREDIENT_CHEESE_COLOR),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -149,7 +153,8 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
             height: 15,
             width: 300,
             decoration: BoxDecoration(
-              color: AppConstants.hexToColor("#bf3813"),
+              color:
+                  AppConstants.hexToColor(AppConstants.INGREDIENT_BACON_COLOR),
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -173,7 +178,8 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
             height: 20,
             width: 310,
             decoration: BoxDecoration(
-              color: AppConstants.hexToColor("#228c1d"),
+              color:
+                  AppConstants.hexToColor(AppConstants.INGREDIENT_SALAD_COLOR),
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -225,7 +231,8 @@ class SeedsWidget extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppConstants.hexToColor("#c9c9c9"),
+                    color: AppConstants.hexToColor(
+                        AppConstants.INGREDIENT_SEED_COLOR),
                     blurRadius: 2,
                     offset: Offset(0, 3), // changes position of shadow
                   ),
@@ -242,7 +249,8 @@ class SeedsWidget extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppConstants.hexToColor("#c9c9c9"),
+                    color: AppConstants.hexToColor(
+                        AppConstants.INGREDIENT_SEED_COLOR),
                     blurRadius: 2,
                     offset: Offset(0, 3), // changes position of shadow
                   ),
@@ -259,7 +267,8 @@ class SeedsWidget extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppConstants.hexToColor("#c9c9c9"),
+                    color: AppConstants.hexToColor(
+                        AppConstants.INGREDIENT_SEED_COLOR),
                     blurRadius: 2,
                     offset: Offset(0, 3), // changes position of shadow
                   ),
@@ -276,7 +285,8 @@ class SeedsWidget extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppConstants.hexToColor("#c9c9c9"),
+                    color: AppConstants.hexToColor(
+                        AppConstants.INGREDIENT_SEED_COLOR),
                     blurRadius: 2,
                     offset: Offset(0, 3), // changes position of shadow
                   ),
@@ -293,7 +303,8 @@ class SeedsWidget extends StatelessWidget {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppConstants.hexToColor("#c9c9c9"),
+                    color: AppConstants.hexToColor(
+                        AppConstants.INGREDIENT_SEED_COLOR),
                     blurRadius: 2,
                     offset: Offset(0, 3), // changes position of shadow
                   ),

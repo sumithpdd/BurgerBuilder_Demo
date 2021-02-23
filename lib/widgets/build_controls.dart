@@ -1,6 +1,5 @@
 import 'package:burger_builder/helpers/app_constants.dart';
 import 'package:burger_builder/models/dummy_data.dart';
-import 'package:burger_builder/models/ingredients_model.dart';
 import 'package:flutter/material.dart';
 
 import 'build_control.dart';
@@ -16,7 +15,8 @@ class _BuildControlsState extends State<BuildControls> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppConstants.hexToColor("#CF8F2E"),
+      color:
+          AppConstants.hexToColor(AppConstants.BUILD_CONTROLS_CONTAINER_COLOR),
       child: Column(
         children: [
           Padding(
@@ -51,23 +51,16 @@ class _BuildControlsState extends State<BuildControls> {
             child: RaisedButton(
               onPressed: () {},
               child: const Text('ORDER NOW', style: TextStyle(fontSize: 20)),
-              color: AppConstants.hexToColor("#DAD735"),
-              textColor: AppConstants.hexToColor("#966909"),
+              color:
+                  AppConstants.hexToColor(AppConstants.BUTTON_BACKGROUND_COLOR),
+              textColor:
+                  AppConstants.hexToColor(AppConstants.BUTTON_TEXT_COLOR),
               elevation: 5,
             ),
           )
         ],
       ),
     );
-  }
-
-  get ingredientsControls {
-    return dummyData.map<Widget>((data) {
-      return Container(
-        height: 50,
-        child: Center(child: Text('Entry ${data.name}')),
-      );
-    }).toList();
   }
 
   Widget buttonBar() {
