@@ -14,7 +14,11 @@ class _AppDrawerState extends State<AppDrawer> {
         children: <Widget>[
           Spacer(),
           ListTile(
-            leading: Icon(Icons.home),
+            leading: Image.asset(
+              'assets/images/burger-logo.png',
+              fit: BoxFit.contain,
+              height: 32,
+            ),
             title: Text('Burger Builder'),
             onTap: () {},
           ),

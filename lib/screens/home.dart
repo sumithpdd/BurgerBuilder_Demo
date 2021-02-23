@@ -20,7 +20,19 @@ class _HomeState extends State<Home> {
     return Scaffold(
         key: _drawerKey, // assign key to Scaffold
         appBar: AppBar(
-          title: Text("Burger Builder"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/burger-logo.png',
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+              Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Burger Builder"))
+            ],
+          ),
           leading: IconButton(
             icon: Icon(Icons.menu),
             iconSize: 30.0,

@@ -35,8 +35,8 @@ class _BurgerState extends State<Burger> {
   }
 
   get transformedIngredients {
-    for (var ingredient in dummyDataIngredients) {
-      ingredientsList.add(BurgerIngredient(type: ingredient));
+    for (var ingredient in dummyData) {
+      ingredientsList.add(BurgerIngredient(type: ingredient.name));
     }
     return ingredientsList;
   }

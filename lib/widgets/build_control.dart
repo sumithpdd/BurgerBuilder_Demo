@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'custom_stepper.dart';
 
 class BuildControl extends StatefulWidget {
-  BuildControl({Key key}) : super(key: key);
-
+  BuildControl({Key key, this.title, this.price}) : super(key: key);
+  final String title;
+  final double price;
   @override
   _BuildControlState createState() => _BuildControlState();
 }
@@ -16,7 +17,7 @@ class _BuildControlState extends State<BuildControl> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+            padding: const EdgeInsets.only(left: 8.0),
             child: Row(
               children: [
                 Row(
@@ -24,7 +25,7 @@ class _BuildControlState extends State<BuildControl> {
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   children: [
                     Text(
-                      'Salad',
+                      widget.title,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -33,7 +34,7 @@ class _BuildControlState extends State<BuildControl> {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      '\$20.40',
+                      "(\$" + "${widget.price})",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15.0,
