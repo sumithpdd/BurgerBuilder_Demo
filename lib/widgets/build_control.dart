@@ -1,11 +1,21 @@
+import 'package:burger_builder/models/ingredients_model.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_stepper.dart';
 
 class BuildControl extends StatefulWidget {
-  BuildControl({Key key, this.title, this.price}) : super(key: key);
-  final String title;
-  final double price;
+  BuildControl(
+      {Key key,
+      @required this.ingredient,
+      @required this.currentValue,
+      @required this.addHandler,
+      @required this.removeHandler})
+      : super(key: key);
+
+  final IngredientsModel ingredient;
+  final int currentValue;
+  final Function addHandler;
+  final Function removeHandler;
   @override
   _BuildControlState createState() => _BuildControlState();
 }
@@ -25,7 +35,7 @@ class _BuildControlState extends State<BuildControl> {
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   children: [
                     Text(
-                      widget.title,
+                      widget.ingredient.label,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -34,7 +44,7 @@ class _BuildControlState extends State<BuildControl> {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      "(\$" + "${widget.price})",
+                      "(\$" + "${widget.ingredient.price.toStringAsFixed(2)})",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 15.0,
@@ -45,11 +55,14 @@ class _BuildControlState extends State<BuildControl> {
                 ),
                 Spacer(),
                 CustomStepper(
-                  value: 1,
+                  value: widget.currentValue,
                   upperLimit: 5,
                   lowerLimit: 0,
                   stepValue: 1,
                   iconSize: 25,
+                  name: widget.ingredient.name,
+                  addHandler: widget.addHandler,
+                  removeHandler: widget.removeHandler,
                 )
               ],
             ),

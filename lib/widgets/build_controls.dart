@@ -1,11 +1,17 @@
 import 'package:burger_builder/helpers/app_constants.dart';
 import 'package:burger_builder/models/dummy_data.dart';
+import 'package:burger_builder/models/user_order_model.dart';
 import 'package:flutter/material.dart';
 
 import 'build_control.dart';
 
 class BuildControls extends StatefulWidget {
-  BuildControls({Key key}) : super(key: key);
+  BuildControls(
+      {Key key, this.userOrderModel, this.addHandler, this.removeHandler})
+      : super(key: key);
+  final UserOrderModel userOrderModel;
+  final Function addHandler;
+  final Function removeHandler;
 
   @override
   _BuildControlsState createState() => _BuildControlsState();
@@ -35,7 +41,8 @@ class _BuildControlsState extends State<BuildControls> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  '\$20.40',
+                  "\$" +
+                      '${widget.userOrderModel.totalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15.0,
@@ -66,10 +73,19 @@ class _BuildControlsState extends State<BuildControls> {
   Widget buttonBar() {
     return Column(
         children: dummyData.map<Widget>((ingredient) {
+      var currentCount = 0;
+      if (widget.userOrderModel.userIngredients != null) {
+        var userIingredient = widget.userOrderModel.userIngredients.singleWhere(
+            (ing) => ing.ingredient.name == ingredient.name,
+            orElse: () => null);
+        currentCount = userIingredient == null ? 0 : userIingredient.count;
+      }
+
       return new BuildControl(
-        title: ingredient.label,
-        price: ingredient.price,
-      );
+          ingredient: ingredient,
+          currentValue: currentCount,
+          addHandler: widget.addHandler,
+          removeHandler: widget.removeHandler);
     }).toList());
   }
 }
