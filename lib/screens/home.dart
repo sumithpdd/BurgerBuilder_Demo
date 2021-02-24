@@ -67,37 +67,39 @@ class _HomeState extends State<Home> {
 
   addIngredientHandler(String name) {
     var ingredient = dummyData.singleWhere((ing) => ing.name == name);
-    setState(() {
-      var foundIngredient = userOrderModel.userIngredients.singleWhere(
-          (element) => element.ingredient.name == name, orElse: () {
-        return null;
-      });
-      if (foundIngredient == null) {
+
+    var foundIngredient = userOrderModel.userIngredients
+        .singleWhere((element) => element.ingredient.name == name, orElse: () {
+      return null;
+    });
+    if (foundIngredient == null) {
+      setState(() {
         userOrderModel.userIngredients.add(
             new UserSelectedIngredientModel(ingredient: ingredient, count: 1));
-      } else {
+      });
+    } else {
+      setState(() {
         foundIngredient.count++;
-      }
-
+      });
+    }
+    setState(() {
       userOrderModel.totalPrice = userOrderModel.totalPrice + ingredient.price;
     });
   }
 
   removeIngredientHandler(name) {
     var ingredient = dummyData.singleWhere((ing) => ing.name == name);
-    setState(() {
-      var foundIngredient = userOrderModel.userIngredients.singleWhere(
-          (element) => element.ingredient.name == name, orElse: () {
-        return null;
-      });
 
-      if (foundIngredient == null) {
-        userOrderModel.userIngredients.add(
-            new UserSelectedIngredientModel(ingredient: ingredient, count: 1));
-      } else {
+    var foundIngredient = userOrderModel.userIngredients
+        .singleWhere((element) => element.ingredient.name == name, orElse: () {
+      return null;
+    });
+    if (foundIngredient != null) {
+      setState(() {
         foundIngredient.count--;
-      }
-
+      });
+    }
+    setState(() {
       userOrderModel.totalPrice = userOrderModel.totalPrice - ingredient.price;
     });
   }

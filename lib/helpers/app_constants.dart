@@ -18,6 +18,7 @@ class AppConstants {
   static const String BUTTON_TEXT_COLOR = "#966909";
 
   static const String BUTTON_COLOR = "#8F5E1E";
+  static const String BUTTON_COLOR_CONTINUE = "#5C9210";
 
   static Color hexToColor(String code) {
     return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);

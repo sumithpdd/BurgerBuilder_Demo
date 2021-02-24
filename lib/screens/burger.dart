@@ -50,8 +50,10 @@ class _BurgerState extends State<Burger> {
       ))));
     }
     for (var selectedIngredient in widget.userOrderModel.userIngredients) {
-      ingredientsList
-          .add(BurgerIngredient(type: selectedIngredient.ingredient.name));
+      for (var i = 0; i < selectedIngredient.count; i++) {
+        ingredientsList
+            .add(BurgerIngredient(type: selectedIngredient.ingredient.name));
+      }
     }
     return ingredientsList;
   }
