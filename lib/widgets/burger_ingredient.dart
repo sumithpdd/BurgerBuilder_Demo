@@ -14,87 +14,145 @@ class BurgerIngredient extends StatefulWidget {
 class _BurgerIngredientState extends State<BurgerIngredient> {
   @override
   Widget build(BuildContext context) {
+    const double BURGER_WIDTH = 325;
     var ingredient;
     switch (widget.type) {
       case ('bread-top'):
         ingredient = Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Container(
-            height: 50,
-            width: 300,
-            decoration: BoxDecoration(
-              color: AppConstants.hexToColor(
-                  AppConstants.INGREDIENT_BREAD_TOP_COLOR),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0.1,
-                    0.9
+          padding: const EdgeInsets.only(bottom: 5.0),
+          child: Stack(
+            children: [
+              Container(
+                height: 60,
+                width: BURGER_WIDTH,
+                decoration: BoxDecoration(
+                  color: AppConstants.hexToColor(
+                      AppConstants.INGREDIENT_BREAD_TOP_COLOR),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [
+                        0.1,
+                        0.9
+                      ],
+                      colors: [
+                        AppConstants.hexToColor("#C15711"),
+                        AppConstants.hexToColor("#C15711")
+                      ]),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppConstants.hexToColor("#c15711"),
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
                   ],
-                  colors: [
-                    AppConstants.hexToColor("#bc581e"),
-                    AppConstants.hexToColor("#e27b36")
-                  ]),
-              boxShadow: [
-                BoxShadow(
-                  color: AppConstants.hexToColor("#c15711"),
-                  offset: Offset(0, 3), // changes position of shadow
                 ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SeedsWidget(),
-            ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SeedsWidget(),
+                ),
+              ),
+              Container(
+                height: 60,
+                width: 315,
+                decoration: BoxDecoration(
+                  color: AppConstants.hexToColor("#e27b36"),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [
+                        0.1,
+                        0.9
+                      ],
+                      colors: [
+                        AppConstants.hexToColor("#e27b36"),
+                        AppConstants.hexToColor("#bc581e"),
+                      ]),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppConstants.hexToColor("#c15711"),
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SeedsWidget(),
+                ),
+              ),
+            ],
           ),
         );
         break;
       case ('bread-bottom'):
         ingredient = Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Container(
-            height: 40,
-            width: 300,
-            decoration: BoxDecoration(
-              color: AppConstants.hexToColor(
-                  AppConstants.INGREDIENT_BREAD_BOTTOM_COLOR),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0.1,
-                    0.9
-                  ],
-                  colors: [
-                    AppConstants.hexToColor("#F08E4A"),
-                    AppConstants.hexToColor("#e27b36")
-                  ]),
-              boxShadow: [
-                BoxShadow(
+          padding: const EdgeInsets.only(top: 5.0),
+          child: Stack(
+            children: [
+              Container(
+                height: 50,
+                width: BURGER_WIDTH,
+                decoration: BoxDecoration(
                   color: AppConstants.hexToColor("#c15711"),
-                  offset: Offset(0, 3), // changes position of shadow
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppConstants.hexToColor("#c15711"),
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Text("Breadbottom"),
+                child: Text("Breadbottom"),
+              ),
+              Container(
+                height: 50,
+                width: 315,
+                decoration: BoxDecoration(
+                  color: AppConstants.hexToColor("#e27b36"),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [
+                        0.1,
+                        0.9
+                      ],
+                      colors: [
+                        AppConstants.hexToColor("#F08E4A"),
+                        AppConstants.hexToColor("#e27b36")
+                      ]),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppConstants.hexToColor("#e27b36"),
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Text("Breadbottom"),
+              ),
+            ],
           ),
         );
         break;
 
       case ('meat'):
         ingredient = Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Container(
-            width: 300,
+            width: BURGER_WIDTH,
             height: 30,
             decoration: BoxDecoration(
               color:
@@ -120,10 +178,10 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
         break;
       case ('cheese'):
         ingredient = Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Container(
             height: 15,
-            width: 310,
+            width: 355,
             decoration: BoxDecoration(
               color:
                   AppConstants.hexToColor(AppConstants.INGREDIENT_CHEESE_COLOR),
@@ -148,10 +206,10 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
         break;
       case ('bacon'):
         ingredient = Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Container(
             height: 15,
-            width: 300,
+            width: BURGER_WIDTH,
             decoration: BoxDecoration(
               color:
                   AppConstants.hexToColor(AppConstants.INGREDIENT_BACON_COLOR),
@@ -173,10 +231,10 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
         break;
       case ('salad'):
         ingredient = Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(5.0),
           child: Container(
             height: 20,
-            width: 310,
+            width: 340,
             decoration: BoxDecoration(
               color:
                   AppConstants.hexToColor(AppConstants.INGREDIENT_SALAD_COLOR),

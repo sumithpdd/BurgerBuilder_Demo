@@ -19,17 +19,20 @@ class _BurgerState extends State<Burger> {
         userIngredients == null || userIngredients.length == 0;
     return Container(
       child: Expanded(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: [
-                BurgerIngredient(type: "bread-top"),
-                if (emptyIngredients) EmptyIngredients(),
-                ...transformedIngredients,
-                BurgerIngredient(type: "bread-bottom"),
-              ],
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BurgerIngredient(type: "bread-top"),
+                  if (emptyIngredients) EmptyIngredients(),
+                  ...transformedIngredients,
+                  BurgerIngredient(type: "bread-bottom"),
+                ],
+              ),
+            ],
           ),
         ),
       ),
