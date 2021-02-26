@@ -7,12 +7,16 @@ import 'package:flutter/material.dart';
 import 'build_control.dart';
 
 class BuildControls extends StatefulWidget {
-  BuildControls(
-      {Key key, this.userOrderModel, this.addHandler, this.removeHandler})
-      : super(key: key);
   final UserOrderModel userOrderModel;
   final Function addHandler;
   final Function removeHandler;
+
+  const BuildControls({
+    Key key,
+    this.userOrderModel,
+    this.addHandler,
+    this.removeHandler,
+  }) : super(key: key);
 
   @override
   _BuildControlsState createState() => _BuildControlsState();
@@ -21,6 +25,7 @@ class BuildControls extends StatefulWidget {
 class _BuildControlsState extends State<BuildControls> {
   @override
   Widget build(BuildContext context) {
+    final totalPrice = widget.userOrderModel.totalPrice;
     return Container(
       color:
           AppConstants.hexToColor(AppConstants.BUILD_CONTROLS_CONTAINER_COLOR),
@@ -42,8 +47,7 @@ class _BuildControlsState extends State<BuildControls> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  "\$" +
-                      '${widget.userOrderModel.totalPrice.toStringAsFixed(2)}',
+                  '\$${totalPrice.toStringAsFixed(2)}',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15.0,
@@ -57,20 +61,20 @@ class _BuildControlsState extends State<BuildControls> {
           Align(
             alignment: Alignment.bottomCenter,
             child: RaisedButton(
-              onPressed: widget.userOrderModel.totalPrice <= 0
+              onPressed: totalPrice <= 0
                   ? null
                   : () {
                       showModalBottomSheet(
-                          context: context,
-                          builder: (context) => Container(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context)
-                                        .viewInsets
-                                        .bottom),
-                                child: OrderSummary(
-                                  userOrderModel: widget.userOrderModel,
-                                ),
-                              ));
+                        context: context,
+                        builder: (context) => Container(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: OrderSummary(
+                            userOrderModel: widget.userOrderModel,
+                          ),
+                        ),
+                      );
                     },
               child: const Text('ORDER NOW', style: TextStyle(fontSize: 20)),
               color:
@@ -86,21 +90,24 @@ class _BuildControlsState extends State<BuildControls> {
   }
 
   Widget buttonBar() {
+    final userIngredients = widget?.userOrderModel?.userIngredients;
     return Column(
-        children: dummyData.map<Widget>((ingredient) {
-      var currentCount = 0;
-      if (widget.userOrderModel.userIngredients != null) {
-        var userIingredient = widget.userOrderModel.userIngredients.singleWhere(
-            (ing) => ing.ingredient.name == ingredient.name,
-            orElse: () => null);
-        currentCount = userIingredient == null ? 0 : userIingredient.count;
-      }
+      children: dummyData.map<Widget>((ingredient) {
+        var currentCount = 0;
 
-      return new BuildControl(
+        final userIngredient = userIngredients?.singleWhere(
+          (ing) => ing.ingredient.name == ingredient.name,
+          orElse: () => null,
+        );
+        currentCount = userIngredient?.count ?? 0;
+
+        return BuildControl(
           ingredient: ingredient,
           currentValue: currentCount,
           addHandler: widget.addHandler,
-          removeHandler: widget.removeHandler);
-    }).toList());
+          removeHandler: widget.removeHandler,
+        );
+      }).toList(),
+    );
   }
 }

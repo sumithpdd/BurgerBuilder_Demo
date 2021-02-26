@@ -79,9 +79,7 @@ class _OrderSummaryState extends State<OrderSummary> {
                     style: TextStyle(color: Colors.white),
                   ),
                   color: AppConstants.hexToColor(AppConstants.BUTTON_COLOR),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  onPressed: () => Navigator.pop(context),
                 ),
                 FlatButton(
                   child: Text(
@@ -89,10 +87,9 @@ class _OrderSummaryState extends State<OrderSummary> {
                     style: TextStyle(color: Colors.white),
                   ),
                   color: AppConstants.hexToColor(
-                      AppConstants.BUTTON_COLOR_CONTINUE),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                    AppConstants.BUTTON_COLOR_CONTINUE,
+                  ),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ],
             ),

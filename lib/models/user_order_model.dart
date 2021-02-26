@@ -11,8 +11,4 @@ class UserSelectedIngredientModel {
   IngredientsModel ingredient;
   int count;
   UserSelectedIngredientModel({this.ingredient, this.count});
-
-  int get Count => count;
-
-  set Count(int value) => count = value;
 }

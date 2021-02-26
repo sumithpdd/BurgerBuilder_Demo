@@ -1,11 +1,12 @@
-import 'package:burger_builder/models/dummy_data.dart';
 import 'package:burger_builder/models/user_order_model.dart';
 import 'package:burger_builder/widgets/burger_ingredient.dart';
 import 'package:flutter/material.dart';
 
 class Burger extends StatefulWidget {
-  Burger({Key key, this.userOrderModel}) : super(key: key);
   final UserOrderModel userOrderModel;
+
+  const Burger({Key key, this.userOrderModel}) : super(key: key);
+
   @override
   _BurgerState createState() => _BurgerState();
 }
@@ -13,6 +14,9 @@ class Burger extends StatefulWidget {
 class _BurgerState extends State<Burger> {
   @override
   Widget build(BuildContext context) {
+    final userIngredients = widget.userOrderModel.userIngredients;
+    final emptyIngredients =
+        userIngredients == null || userIngredients.length == 0;
     return Container(
       child: Expanded(
         child: Center(
@@ -21,10 +25,8 @@ class _BurgerState extends State<Burger> {
             child: ListView(
               children: [
                 BurgerIngredient(type: "bread-top"),
-                new ListView(
-                  shrinkWrap: true,
-                  children: transformedIngredients,
-                ),
+                if (emptyIngredients) EmptyIngredients(),
+                ...transformedIngredients,
                 BurgerIngredient(type: "bread-bottom"),
               ],
             ),
@@ -35,26 +37,37 @@ class _BurgerState extends State<Burger> {
   }
 
   get transformedIngredients {
-    List<Widget> ingredientsList = new List<Widget>();
-    if (widget.userOrderModel.userIngredients == null ||
-        widget.userOrderModel.userIngredients.length == 0) {
-      ingredientsList.add(Container(
-          child: Center(
-              child: Text(
-        "Please start adding ingredients!",
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ))));
-    }
-    for (var selectedIngredient in widget.userOrderModel.userIngredients) {
+    final userIngredients = widget.userOrderModel.userIngredients;
+    List<Widget> ingredientsList = [];
+    for (var selectedIngredient in userIngredients) {
       for (var i = 0; i < selectedIngredient.count; i++) {
-        ingredientsList
-            .add(BurgerIngredient(type: selectedIngredient.ingredient.name));
+        ingredientsList.add(
+          BurgerIngredient(type: selectedIngredient.ingredient.name),
+        );
       }
     }
     return ingredientsList;
+  }
+}
+
+class EmptyIngredients extends StatelessWidget {
+  const EmptyIngredients({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "Please start adding ingredients!",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 }
