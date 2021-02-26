@@ -1,5 +1,6 @@
 import 'package:burger_builder/helpers/app_constants.dart';
 import 'package:burger_builder/models/dummy_data.dart';
+import 'package:burger_builder/models/ingredients_model.dart';
 import 'package:burger_builder/models/user_order_model.dart';
 import 'package:burger_builder/screens/order_summary.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +8,19 @@ import 'package:flutter/material.dart';
 import 'build_control.dart';
 
 class BuildControls extends StatefulWidget {
+ 
+  BuildControls(
+      {Key key,
+      this.userOrderModel,
+      this.addHandler,
+      this.removeHandler,
+      this.ingredients})
+      : super(key: key);
   final UserOrderModel userOrderModel;
   final Function addHandler;
   final Function removeHandler;
-
-  const BuildControls({
-    Key key,
-    this.userOrderModel,
-    this.addHandler,
-    this.removeHandler,
-  }) : super(key: key);
-
+  final List<IngredientsModel> ingredients;
+ 
   @override
   _BuildControlsState createState() => _BuildControlsState();
 }
@@ -92,13 +95,13 @@ class _BuildControlsState extends State<BuildControls> {
   Widget buttonBar() {
     final userIngredients = widget?.userOrderModel?.userIngredients;
     return Column(
-      children: dummyData.map<Widget>((ingredient) {
-        final userIngredient = userIngredients?.singleWhere(
-          (ing) => ing.ingredient.name == ingredient.name,
-          orElse: () => null,
-        );
-
+  
+        children: widget.ingredients.map<Widget>((ingredient) {
+       final userIngredient = widget.userOrderModel?.userIngredients.singleWhere(
+            (ing) => ing.ingredient.name == ingredient.name,
+            orElse: () => null);
         final currentCount = userIngredient?.count ?? 0;
+      } 
 
         return BuildControl(
           ingredient: ingredient,
