@@ -18,7 +18,7 @@ class CustomStepper extends StatefulWidget {
   final int upperLimit;
   final int stepValue;
   final double iconSize;
-  int value;
+  final int value;
   final String name;
   final Function addHandler;
   final Function removeHandler;
@@ -27,6 +27,14 @@ class CustomStepper extends StatefulWidget {
 }
 
 class _CustomStepperState extends State<CustomStepper> {
+  int value;
+
+  @override
+  void initState() {
+    value = widget.value;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -38,11 +46,7 @@ class _CustomStepperState extends State<CustomStepper> {
           onPress: widget.value == widget.lowerLimit
               ? null
               : () {
-                  setState(() {
-                    widget.value = widget.value == widget.lowerLimit
-                        ? widget.lowerLimit
-                        : widget.value -= widget.stepValue;
-                  });
+                  _setValue();
                   widget.removeHandler(widget.name);
                 },
         ),
@@ -62,15 +66,17 @@ class _CustomStepperState extends State<CustomStepper> {
           onPress: widget.value == widget.upperLimit
               ? null
               : () {
-                  setState(() {
-                    widget.value = widget.value == widget.upperLimit
-                        ? widget.upperLimit
-                        : widget.value += widget.stepValue;
-                  });
+                  _setValue();
                   widget.addHandler(widget.name);
                 },
         ),
       ],
     );
   }
+
+  _setValue() => setState(() {
+        value = widget.value == widget.upperLimit
+            ? widget.upperLimit
+            : value += widget.stepValue;
+      });
 }

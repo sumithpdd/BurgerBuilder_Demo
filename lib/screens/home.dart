@@ -16,10 +16,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-  UserOrderModel userOrderModel = new UserOrderModel(
-      customer: "sumith",
-      userIngredients: new List<UserSelectedIngredientModel>(),
-      totalPrice: 0);
+
+  UserOrderModel userOrderModel = UserOrderModel(
+    customer: "sumith",
+    userIngredients: List<UserSelectedIngredientModel>(),
+    totalPrice: 0,
+  );
 
   List<IngredientsModel> ingredients = [];
   @override
@@ -36,23 +38,26 @@ class _HomeState extends State<Home> {
               height: 32,
             ),
             Container(
+
                 padding: const EdgeInsets.all(8.0),
                 child: Text("Burger Builder"))
+
           ],
         ),
         leading: IconButton(
           icon: Icon(Icons.menu),
           iconSize: 30.0,
           color: Colors.white,
-          onPressed: () {
-            _drawerKey.currentState.openDrawer();
-          },
+
+          onPressed: () => _drawerKey.currentState.openDrawer(),
+
         ),
         elevation: 0.0,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {},
+ 
           ),
         ],
       ),
@@ -79,23 +84,25 @@ class _HomeState extends State<Home> {
       ),
       BuildControls(
           userOrderModel: userOrderModel,
-          addHandler: addIngredientHandler,
-          removeHandler: removeIngredientHandler,
+          addHandler: _addIngredientHandler,
+          removeHandler: _removeIngredientHandler,
           ingredients: ingredients)
     ]);
   }
 
-  addIngredientHandler(String name) {
+  _addIngredientHandler(String name) {
     var ingredient = ingredients.singleWhere((ing) => ing.name == name);
+ 
 
-    var foundIngredient = userOrderModel.userIngredients
-        .singleWhere((element) => element.ingredient.name == name, orElse: () {
-      return null;
-    });
+    final foundIngredient = userOrderModel.userIngredients.singleWhere(
+      (element) => element.ingredient.name == name,
+      orElse: () => null,
+    );
     if (foundIngredient == null) {
       setState(() {
         userOrderModel.userIngredients.add(
-            new UserSelectedIngredientModel(ingredient: ingredient, count: 1));
+          UserSelectedIngredientModel(ingredient: ingredient, count: 1),
+        );
       });
     } else {
       setState(() {
@@ -107,13 +114,15 @@ class _HomeState extends State<Home> {
     });
   }
 
-  removeIngredientHandler(name) {
-    var ingredient = ingredients.singleWhere((ing) => ing.name == name);
+ 
+  _removeIngredientHandler(name) {
+    final ingredient = dummyData.singleWhere((ing) => ing.name == name);
+ 
 
-    var foundIngredient = userOrderModel.userIngredients
-        .singleWhere((element) => element.ingredient.name == name, orElse: () {
-      return null;
-    });
+    final foundIngredient = userOrderModel.userIngredients.singleWhere(
+      (element) => element.ingredient.name == name,
+      orElse: () => null,
+    );
     if (foundIngredient != null) {
       setState(() {
         foundIngredient.count--;
@@ -121,6 +130,8 @@ class _HomeState extends State<Home> {
     }
     setState(() {
       userOrderModel.totalPrice = userOrderModel.totalPrice - ingredient.price;
+      userOrderModel.userIngredients
+          .removeWhere((element) => element.count == 0);
     });
   }
 }
