@@ -1,5 +1,6 @@
 import 'package:burger_builder/helpers/app_constants.dart';
 import 'package:burger_builder/models/dummy_data.dart';
+import 'package:burger_builder/models/ingredients_model.dart';
 import 'package:burger_builder/models/user_order_model.dart';
 import 'package:burger_builder/screens/order_summary.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +9,16 @@ import 'build_control.dart';
 
 class BuildControls extends StatefulWidget {
   BuildControls(
-      {Key key, this.userOrderModel, this.addHandler, this.removeHandler})
+      {Key key,
+      this.userOrderModel,
+      this.addHandler,
+      this.removeHandler,
+      this.ingredients})
       : super(key: key);
   final UserOrderModel userOrderModel;
   final Function addHandler;
   final Function removeHandler;
-
+  final List<IngredientsModel> ingredients;
   @override
   _BuildControlsState createState() => _BuildControlsState();
 }
@@ -87,7 +92,7 @@ class _BuildControlsState extends State<BuildControls> {
 
   Widget buttonBar() {
     return Column(
-        children: dummyData.map<Widget>((ingredient) {
+        children: widget.ingredients.map<Widget>((ingredient) {
       var currentCount = 0;
       if (widget.userOrderModel.userIngredients != null) {
         var userIingredient = widget.userOrderModel.userIngredients.singleWhere(
