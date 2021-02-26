@@ -1,15 +1,18 @@
 import 'package:burger_builder/helpers/app_constants.dart';
 import 'package:burger_builder/models/user_order_model.dart';
+import 'package:burger_builder/services/http_service.dart';
 import 'package:flutter/material.dart';
 
 class OrderSummary extends StatefulWidget {
   OrderSummary({Key key, @required this.userOrderModel}) : super(key: key);
-  final UserOrderModel userOrderModel;
+  UserOrderModel userOrderModel;
   @override
   _OrderSummaryState createState() => _OrderSummaryState();
 }
 
 class _OrderSummaryState extends State<OrderSummary> {
+  bool visible = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,6 +76,18 @@ class _OrderSummaryState extends State<OrderSummary> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Visibility(
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    visible: visible,
+                    child: Container(
+                        margin: EdgeInsets.only(top: 50, bottom: 30),
+                        child: CircularProgressIndicator(
+                          backgroundColor: AppConstants.hexToColor(
+                            AppConstants.APP_PRIMARY_COLOR,
+                          ),
+                        ))),
                 FlatButton(
                   child: Text(
                     'CANCEL',
@@ -89,7 +104,30 @@ class _OrderSummaryState extends State<OrderSummary> {
                   color: AppConstants.hexToColor(
                     AppConstants.BUTTON_COLOR_CONTINUE,
                   ),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () async {
+                    setState(() {
+                      visible = true;
+                    });
+                    var orderid = await HttpService()
+                        .purchaseContinue(widget.userOrderModel);
+                    if (orderid.length > 0) {
+                      setState(() {
+                        widget.userOrderModel = new UserOrderModel(
+                            customer: "Sumith",
+                            userIngredients:
+                                new List<UserSelectedIngredientModel>(),
+                            totalPrice: 0.00);
+                      });
+                      SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        content: Text('order placed - ' + orderid),
+                      );
+                    }
+                    setState(() {
+                      visible = false;
+                    });
+                    Navigator.pop(context);
+                  },
                 ),
               ],
             ),
