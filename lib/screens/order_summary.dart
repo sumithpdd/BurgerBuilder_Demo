@@ -22,19 +22,28 @@ class _OrderSummaryState extends State<OrderSummary> {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0))),
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0))),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
               'Your Order',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30.0, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5.0),
-            Text(
-              'A delicious burger with the following ingredients:',
-              style: TextStyle(fontSize: 15.0, color: Colors.black),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'A delicious burger with the following ingredients:',
+                  style: TextStyle(fontSize: 15.0, color: Colors.black),
+                ),
+              ],
             ),
             Expanded(
               child: ListView.separated(
@@ -64,30 +73,20 @@ class _OrderSummaryState extends State<OrderSummary> {
             Text(
               'Total Price : \$' +
                   "${widget.userOrderModel.totalPrice.toStringAsFixed(2)}",
-              style: TextStyle(fontSize: 20.0, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 15.0,
+                  color: AppConstants.hexToColor(
+                    AppConstants.BUTTON_COLOR_CONTINUE,
+                  ),
+                  fontWeight: FontWeight.bold),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Continue to Chekout?',
-                style: TextStyle(fontSize: 15.0, color: Colors.black),
-              ),
+            Text(
+              'Continue to Chekout?',
+              style: TextStyle(fontSize: 15.0, color: Colors.black),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Visibility(
-                    maintainSize: true,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    visible: visible,
-                    child: Container(
-                        margin: EdgeInsets.only(top: 50, bottom: 30),
-                        child: CircularProgressIndicator(
-                          backgroundColor: AppConstants.hexToColor(
-                            AppConstants.APP_PRIMARY_COLOR,
-                          ),
-                        ))),
                 FlatButton(
                   child: Text(
                     'CANCEL',
@@ -96,39 +95,45 @@ class _OrderSummaryState extends State<OrderSummary> {
                   color: AppConstants.hexToColor(AppConstants.BUTTON_COLOR),
                   onPressed: () => Navigator.pop(context),
                 ),
-                FlatButton(
-                  child: Text(
-                    'CONTINUE',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: AppConstants.hexToColor(
-                    AppConstants.BUTTON_COLOR_CONTINUE,
-                  ),
-                  onPressed: () async {
-                    setState(() {
-                      visible = true;
-                    });
-                    var orderid = await HttpService()
-                        .purchaseContinue(widget.userOrderModel);
-                    if (orderid.length > 0) {
-                      setState(() {
-                        widget.userOrderModel = new UserOrderModel(
-                            customer: "Sumith",
-                            userIngredients:
-                                new List<UserSelectedIngredientModel>(),
-                            totalPrice: 0.00);
-                      });
-                      SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Text('order placed - ' + orderid),
-                      );
-                    }
-                    setState(() {
-                      visible = false;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
+                visible
+                    ? CircularProgressIndicator(
+                        backgroundColor: AppConstants.hexToColor(
+                          AppConstants.APP_PRIMARY_COLOR,
+                        ),
+                      )
+                    : FlatButton(
+                        child: Text(
+                          'CONTINUE',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: AppConstants.hexToColor(
+                          AppConstants.BUTTON_COLOR_CONTINUE,
+                        ),
+                        onPressed: () async {
+                          setState(() {
+                            visible = true;
+                          });
+                          var orderid = await HttpService()
+                              .purchaseContinue(widget.userOrderModel);
+                          if (orderid.length > 0) {
+                            setState(() {
+                              widget.userOrderModel = new UserOrderModel(
+                                  customer: "Sumith",
+                                  userIngredients:
+                                      new List<UserSelectedIngredientModel>(),
+                                  totalPrice: 0.00);
+                            });
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              content: Text('order placed - ' + orderid),
+                            );
+                          }
+                          setState(() {
+                            visible = false;
+                          });
+                          Navigator.pop(context);
+                        },
+                      ),
               ],
             ),
           ],

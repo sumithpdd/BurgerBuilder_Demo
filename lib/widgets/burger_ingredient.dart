@@ -112,37 +112,34 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
                     ),
                   ],
                 ),
-                child: Text("Breadbottom"),
               ),
               Container(
-                height: 50,
-                width: 315,
-                decoration: BoxDecoration(
-                  color: AppConstants.hexToColor("#e27b36"),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [
-                        0.1,
-                        0.9
-                      ],
-                      colors: [
-                        AppConstants.hexToColor("#F08E4A"),
-                        AppConstants.hexToColor("#e27b36")
-                      ]),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppConstants.hexToColor("#e27b36"),
-                      offset: Offset(0, 3), // changes position of shadow
+                  height: 50,
+                  width: 315,
+                  decoration: BoxDecoration(
+                    color: AppConstants.hexToColor("#e27b36"),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
                     ),
-                  ],
-                ),
-                child: Text("Breadbottom"),
-              ),
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [
+                          0.1,
+                          0.9
+                        ],
+                        colors: [
+                          AppConstants.hexToColor("#F08E4A"),
+                          AppConstants.hexToColor("#e27b36")
+                        ]),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppConstants.hexToColor("#e27b36"),
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  )),
             ],
           ),
         );
@@ -152,28 +149,26 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
         ingredient = Padding(
           padding: const EdgeInsets.all(5.0),
           child: Container(
-            width: BURGER_WIDTH,
-            height: 30,
-            decoration: BoxDecoration(
-              color:
-                  AppConstants.hexToColor(AppConstants.INGREDIENT_MEAT_COLOR),
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [
-                    0.1,
-                    0.9
-                  ],
-                  colors: [
-                    AppConstants.hexToColor("#7f3608"),
-                    AppConstants.hexToColor("#702e05")
-                  ]),
-            ),
-            child: Text("Meat"),
-          ),
+              width: BURGER_WIDTH,
+              height: 30,
+              decoration: BoxDecoration(
+                color:
+                    AppConstants.hexToColor(AppConstants.INGREDIENT_MEAT_COLOR),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [
+                      0.1,
+                      0.9
+                    ],
+                    colors: [
+                      AppConstants.hexToColor("#7f3608"),
+                      AppConstants.hexToColor("#702e05")
+                    ]),
+              )),
         );
         break;
       case ('cheese'):
@@ -200,7 +195,6 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
                     AppConstants.hexToColor("#d6bb22")
                   ]),
             ),
-            child: Text("Cheese"),
           ),
         );
         break;
@@ -225,7 +219,6 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
                     AppConstants.hexToColor("#c45e38")
                   ]),
             ),
-            child: Text("Bacon"),
           ),
         );
         break;
@@ -256,7 +249,6 @@ class _BurgerIngredientState extends State<BurgerIngredient> {
                 topRight: Radius.circular(10),
               ),
             ),
-            child: Text("salad"),
           ),
         );
         break;
