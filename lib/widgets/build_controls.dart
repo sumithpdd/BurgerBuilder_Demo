@@ -93,13 +93,12 @@ class _BuildControlsState extends State<BuildControls> {
     final userIngredients = widget?.userOrderModel?.userIngredients;
     return Column(
       children: dummyData.map<Widget>((ingredient) {
-        var currentCount = 0;
-
         final userIngredient = userIngredients?.singleWhere(
           (ing) => ing.ingredient.name == ingredient.name,
           orElse: () => null,
         );
-        currentCount = userIngredient?.count ?? 0;
+
+        final currentCount = userIngredient?.count ?? 0;
 
         return BuildControl(
           ingredient: ingredient,
