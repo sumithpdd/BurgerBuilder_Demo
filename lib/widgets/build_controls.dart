@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'build_control.dart';
 
 class BuildControls extends StatefulWidget {
- 
   BuildControls(
       {Key key,
       this.userOrderModel,
@@ -20,7 +19,7 @@ class BuildControls extends StatefulWidget {
   final Function addHandler;
   final Function removeHandler;
   final List<IngredientsModel> ingredients;
- 
+
   @override
   _BuildControlsState createState() => _BuildControlsState();
 }
@@ -93,15 +92,13 @@ class _BuildControlsState extends State<BuildControls> {
   }
 
   Widget buttonBar() {
-    final userIngredients = widget?.userOrderModel?.userIngredients;
     return Column(
-  
-        children: widget.ingredients.map<Widget>((ingredient) {
-       final userIngredient = widget.userOrderModel?.userIngredients.singleWhere(
-            (ing) => ing.ingredient.name == ingredient.name,
-            orElse: () => null);
+      children: widget.ingredients.map<Widget>((ingredient) {
+        final userIngredient = widget.userOrderModel?.userIngredients
+            .singleWhere((ing) => ing.ingredient.name == ingredient.name,
+                orElse: () => null);
+
         final currentCount = userIngredient?.count ?? 0;
-      } 
 
         return BuildControl(
           ingredient: ingredient,

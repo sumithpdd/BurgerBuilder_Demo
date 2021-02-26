@@ -38,33 +38,28 @@ class _HomeState extends State<Home> {
               height: 32,
             ),
             Container(
-
                 padding: const EdgeInsets.all(8.0),
                 child: Text("Burger Builder"))
-
           ],
         ),
         leading: IconButton(
           icon: Icon(Icons.menu),
           iconSize: 30.0,
           color: Colors.white,
-
           onPressed: () => _drawerKey.currentState.openDrawer(),
-
         ),
         elevation: 0.0,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {},
- 
           ),
         ],
       ),
       drawer: AppDrawer(),
       backgroundColor: Colors.white,
       body: FutureBuilder<List<IngredientsModel>>(
-        future: HttpService().sendData(),
+        future: HttpService().fetchTheIngredients(),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
 
@@ -92,7 +87,6 @@ class _HomeState extends State<Home> {
 
   _addIngredientHandler(String name) {
     var ingredient = ingredients.singleWhere((ing) => ing.name == name);
- 
 
     final foundIngredient = userOrderModel.userIngredients.singleWhere(
       (element) => element.ingredient.name == name,
@@ -114,10 +108,8 @@ class _HomeState extends State<Home> {
     });
   }
 
- 
   _removeIngredientHandler(name) {
     final ingredient = dummyData.singleWhere((ing) => ing.name == name);
- 
 
     final foundIngredient = userOrderModel.userIngredients.singleWhere(
       (element) => element.ingredient.name == name,
