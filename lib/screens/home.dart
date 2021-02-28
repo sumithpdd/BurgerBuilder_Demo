@@ -1,11 +1,13 @@
 import 'package:burger_builder/models/dummy_data.dart';
 import 'package:burger_builder/models/ingredients_model.dart';
 import 'package:burger_builder/models/user_order_model.dart';
+import 'package:burger_builder/providers/user_order_provider.dart';
 import 'package:burger_builder/screens/burger.dart';
 import 'package:burger_builder/services/http_service.dart';
 import 'package:burger_builder/widgets/app_drawer.dart';
 import 'package:burger_builder/widgets/build_controls.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -16,12 +18,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
-
-  UserOrderModel userOrderModel = UserOrderModel(
-    customer: "sumith",
-    userIngredients: List<UserSelectedIngredientModel>(),
-    totalPrice: 0,
-  );
 
   List<IngredientsModel> ingredients = [];
   @override
@@ -73,57 +69,7 @@ class _HomeState extends State<Home> {
 
   Column mainView(data) {
     ingredients = data;
-    return Column(children: <Widget>[
-      Burger(
-        userOrderModel: userOrderModel,
-      ),
-      BuildControls(
-          userOrderModel: userOrderModel,
-          addHandler: _addIngredientHandler,
-          removeHandler: _removeIngredientHandler,
-          ingredients: ingredients)
-    ]);
-  }
-
-  _addIngredientHandler(String name) {
-    var ingredient = ingredients.singleWhere((ing) => ing.name == name);
-
-    final foundIngredient = userOrderModel.userIngredients.singleWhere(
-      (element) => element.ingredient.name == name,
-      orElse: () => null,
-    );
-    if (foundIngredient == null) {
-      setState(() {
-        userOrderModel.userIngredients.add(
-          UserSelectedIngredientModel(ingredient: ingredient, count: 1),
-        );
-      });
-    } else {
-      setState(() {
-        foundIngredient.count++;
-      });
-    }
-    setState(() {
-      userOrderModel.totalPrice = userOrderModel.totalPrice + ingredient.price;
-    });
-  }
-
-  _removeIngredientHandler(name) {
-    final ingredient = dummyData.singleWhere((ing) => ing.name == name);
-
-    final foundIngredient = userOrderModel.userIngredients.singleWhere(
-      (element) => element.ingredient.name == name,
-      orElse: () => null,
-    );
-    if (foundIngredient != null) {
-      setState(() {
-        foundIngredient.count--;
-      });
-    }
-    setState(() {
-      userOrderModel.totalPrice = userOrderModel.totalPrice - ingredient.price;
-      userOrderModel.userIngredients
-          .removeWhere((element) => element.count == 0);
-    });
+    return Column(
+        children: <Widget>[Burger(), BuildControls(ingredients: ingredients)]);
   }
 }
